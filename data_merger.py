@@ -16,6 +16,8 @@ def convert_data_to_cleaned_list(data, all_headers):
         for h in all_headers:
             if h in row:
                 new_list.append(row[h])
+            elif h == "seqn" and h not in row:
+                new_list.append(line)
             else:
                 new_list.append('NQ')
         master_list.append(new_list)
