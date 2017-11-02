@@ -38,10 +38,7 @@ for root, dirs, files in os.walk(path):
             data = {}
             csv_data = {}
             for h in headers:
-                if h == "seqn":
-                    all_headers.append(h)
-                else:
-                    csv_data[h] = {}
+                csv_data[h] = {}
             for row in reader:
                 for h in headers:
                     csv_data[h] = row[h]
