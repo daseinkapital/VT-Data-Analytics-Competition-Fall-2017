@@ -8,6 +8,20 @@ Created on Wed Nov  1 17:40:57 2017
 import csv
 import os
 
+def convert_data_to_cleaned_list(data, all_headers):
+    master_list = []
+    for line in data:
+        row = data[line]
+        new_list = []
+        for h in all_headers:
+            if h in row:
+                new_list.append(row[h])
+            else:
+                new_list.append('NQ')
+        master_list.append(new_list)
+    return master_list
+
+
 path = os.path.join(os.getcwd(), 'csv_files')
 first_file = True
 all_headers = []
@@ -56,26 +70,10 @@ for root, dirs, files in os.walk(path):
             all_headers += current_headers
     
         
-x = 0
-for line in data:
-    print(line)
-    if x > 10:
-        break
-    else:
-        x += 1
-        
-        
-def convert_data_to_cleaned_list(data, all_headers):
-    master_list = []
-    for line in data:
-        row = data[line]
-        new_list = []
-        for h in all_headers:
-            if h in row:
-                new_list.append(row[h])
-            else:
-                new_list.append('NQ')
-        master_list.append(new_list)
-    return master_list
 
 master = convert_data_to_cleaned_list(data, all_headers)
+
+with open('master_cleaned.csv', 'w', newline='') as f:
+    writer = csv.writer(f)
+    writer.writerow(all_headers)
+    writer.writerows(master)
